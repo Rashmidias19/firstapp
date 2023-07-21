@@ -4,24 +4,42 @@ import './App.css';
 
 export default function App(){
 
-  const[name,setName]=useState("");
+  const[score,setScore]=useState("10");
+  const[comment,setComment]=useState("");
 
-  const handelSubmit =(e) =>{
+  const handleSubmit = (e) =>{
     e.preventDefault();
-    setName("");
-    console.log("Form Submitted");
+
+    if(Number(score)<=5 && comment.length<=10){
+      alert("Please provide the correct details.");
+      return;
+    }else{
+      alert("Data entered successfully.");
+    }
+
+    setComment("");
+    setScore("10");
+
   }
 
   return(
     <div className="App">
-      <form onSubmit={handelSubmit}>
+      <form onSubmit={handleSubmit} >
         <fieldset>
+          <h2>Feedback Form</h2>
           <div className="Field">
-              <label htmlFor="name">Name:</label>
-              <input
-              id="name"
-              type="text" placeholder="Name" name="name" value={name}
-              onChange={(e)=> setName(e.target.value)} />
+              <label>Score: {score}⭐</label>
+              <div>
+              <input 
+              type="range" min={0} max={10} value={score} onChange={e => setScore(e.target.value)} />
+              </div>
+          <div className="Field">
+            <label>Comment:</label>
+            <div>
+            <textarea value={comment} onChange={e =>setComment(e.target.value)} />
+            </div>
+            
+          </div>
           </div>
           <button type="submit">Submit</button>
         </fieldset>
